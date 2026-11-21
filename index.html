@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-version" content="0.2">
+  <meta name="referrer" content="no-referrer">
+  <title>Новая вкладка</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="module" src="js/app.js"></script>
+</head>
+<body>
+  <button type="button" id="settings-open" class="icon-btn settings-button" aria-label="Настройки" title="Настройки (,)"><svg class="icon" aria-hidden="true"><use href="assets/icons/ui.svg#settings"></use></svg></button>
+  <main class="shell" aria-label="Рабочая область">
+    <section class="hero" aria-label="Время и дата">
+      <time class="clock" id="clock" aria-label="Текущее время"></time>
+      <time class="date-line" id="date"></time>
+      <p class="greeting" id="greeting-row"><svg class="icon" aria-hidden="true"><use href="assets/icons/ui.svg#sun"></use></svg><span id="greeting"></span></p>
+    </section>
+    <form id="search" class="search" role="search">
+      <svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#search"></use></svg><input id="query" aria-label="Поисковый запрос или адрес сайта" placeholder="Поиск или адрес" autocomplete="off" spellcheck="false" required>
+      <kbd id="search-hint" aria-hidden="true">/</kbd><button type="button" id="clear-search" class="icon-btn" aria-label="Очистить поиск" title="Очистить поиск"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#close"></use></svg></button>
+      <div class="engine"><select id="engine" aria-label="Поисковая система"><option value="google">Google</option><option value="yandex">Яндекс</option><option value="bing">Bing</option></select><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#chevron"></use></svg></div>
+    </form>
+    <section class="shortcuts" aria-labelledby="links-heading">
+      <div class="section-head"><h2 id="links-heading"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#grid"></use></svg>Быстрые ссылки</h2>
+        <div class="actions"><button type="button" id="links-edit" class="text-btn"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#edit"></use></svg><span>Изменить</span></button><button type="button" id="link-add" class="outline"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#plus"></use></svg>Добавить</button></div>
+      </div>
+      <div id="links" class="links"></div>
+      <p id="links-empty" class="empty" hidden>Добавьте первую ссылку, чтобы открыть её отсюда.</p>
+    </section>
+    <div class="widgets">
+      <section id="weather" class="widget" aria-labelledby="weather-heading">
+        <div class="widget-head"><h2 id="weather-heading"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#cloud"></use></svg>Погода</h2><button type="button" id="city-open" class="city-btn" title="Сменить город"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#pin"></use></svg><span id="city-name">Севастополь</span><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#chevron"></use></svg></button></div>
+        <div class="weather-body" aria-live="polite"><div class="weather-art"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#cloud"></use></svg></div><div><div id="temp" class="temp">—</div><div id="conditions">Загрузка погоды…</div></div>
+        <div class="weather-stats" id="weather-stats" hidden><span id="range"></span><span><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#wind"></use></svg><span id="wind"></span></span></div></div>
+        <div class="widget-foot"><span id="weather-status" role="status"></span><button type="button" id="weather-retry" class="icon-btn" aria-label="Обновить погоду" title="Обновить погоду"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#refresh"></use></svg></button><a class="source" href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a></div>
+      </section>
+      <section id="translator" class="widget" aria-labelledby="translate-heading">
+        <div class="widget-head"><h2 id="translate-heading"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#translate"></use></svg>Переводчик</h2>
+          <button type="button" id="swap" class="language" aria-label="Сменить направление перевода"><span id="from">EN</span><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#swap"></use></svg><span id="to">RU</span></button></div>
+        <form id="translate-form" action="https://translate.google.com/" target="_blank" rel="noopener noreferrer">
+          <input type="hidden" name="sl" id="sl" value="en"><input type="hidden" name="tl" id="tl" value="ru"><input type="hidden" name="op" value="translate">
+          <textarea id="translation" name="text" aria-label="Текст для перевода" placeholder="Введите текст для перевода…" required maxlength="5000"></textarea>
+          <div class="translate-foot"><span class="source">Google Translate</span><button class="accent-btn" type="submit">Перевести</button></div>
+        </form>
+      </section>
+    </div>
+  </main>
+  <p class="notice" id="notice" role="status" hidden></p>
+  <dialog id="settings" aria-labelledby="settings-title"><div class="modal-head"><h2 id="settings-title"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#settings"></use></svg>Настройки</h2><button type="button" class="icon-btn" data-close aria-label="Закрыть"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#close"></use></svg></button></div>
+    <div class="modal-body settings">
+      <label>Ваше имя<input id="pref-name" maxlength="48" placeholder="Как к вам обращаться?" autocomplete="off"></label>
+      <label>Поисковая система<select id="pref-engine"><option value="google">Google</option><option value="yandex">Яндекс</option><option value="bing">Bing</option></select></label>
+      <fieldset><legend>Рабочая область</legend><div class="toggles">
+      <label><input type="checkbox" id="pref-greeting">Приветствие</label><label><input type="checkbox" id="pref-clock">Часы</label><label><input type="checkbox" id="pref-weather">Погода</label><label><input type="checkbox" id="pref-translator">Переводчик</label></div></fieldset>
+      <div class="setting-row"><span>Быстрые ссылки</span><button type="button" class="outline" id="pref-links">Управление</button></div>
+      <label>Цветовой акцент<select id="pref-accent"><option value="neutral">Нейтральный</option><option value="sand">Песочный</option><option value="sage">Шалфейный</option><option value="blue">Голубой</option><option value="lilac">Сиреневый</option></select></label>
+      <label>Интенсивность стекла <output id="glass-value" for="pref-glass"></output><input id="pref-glass" type="range" min="0" max="100" step="5"></label>
+      <button type="button" class="text-btn reset" id="reset-open">Восстановить стандартные настройки</button>
+    </div>
+  </dialog>
+  <dialog id="manager" aria-labelledby="manager-title"><div class="modal-head"><h2 id="manager-title"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#grid"></use></svg>Быстрые ссылки</h2><button type="button" class="icon-btn" data-close aria-label="Закрыть"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#close"></use></svg></button></div>
+    <div class="modal-body"><ul id="manage-list"></ul><button type="button" id="manager-add" class="outline"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#plus"></use></svg>Добавить ссылку</button></div>
+  </dialog>
+  <dialog id="editor" aria-labelledby="editor-title"><div class="modal-head"><h2 id="editor-title"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#edit"></use></svg>Добавить ссылку</h2><button type="button" class="icon-btn" data-close aria-label="Закрыть"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#close"></use></svg></button></div>
+    <form id="link-form" class="modal-body"><label>Название<input id="link-name" required maxlength="60"></label>
+    <label>Адрес сайта<input id="link-url" required placeholder="https://example.com" inputmode="url" spellcheck="false"></label><button class="primary" type="submit">Сохранить</button></form>
+  </dialog>
+  <dialog id="city-dialog" aria-labelledby="city-dialog-title"><div class="modal-head"><h2 id="city-dialog-title"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#pin"></use></svg>Выбор города</h2><button type="button" class="icon-btn" data-close aria-label="Закрыть"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#close"></use></svg></button></div>
+    <div class="modal-body"><form id="city-form"><label>Город<input id="city-query" minlength="2" maxlength="100" required autocomplete="off"></label><button class="primary" type="submit">Найти</button></form>
+    <p id="city-status" role="status"></p><ul id="city-results"></ul></div>
+  </dialog>
+  <dialog id="confirm" aria-labelledby="confirm-title"><div class="modal-head"><h2 id="confirm-title"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#settings"></use></svg>Подтверждение</h2><button type="button" class="icon-btn" data-close aria-label="Закрыть"><svg class="icon " aria-hidden="true"><use href="assets/icons/ui.svg#close"></use></svg></button></div>
+    <div class="modal-body"><p id="confirm-message"></p><div class="actions dialog-actions"><button type="button" data-close class="outline">Отмена</button><button id="confirm-yes" type="button" class="primary">Подтвердить</button></div></div>
+  </dialog>
+</body>
+</html>
